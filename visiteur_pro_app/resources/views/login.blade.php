@@ -40,7 +40,7 @@
                 </div>
                 <div class="flex flex-col sm:flex-row items-center justify-between gap-2 px-4 pt-4 text-sm text-center">
                     <a class="text-primary hover:underline dark:text-primary/90" href="{{ route('password.request') }}">Mot de passe oublié ?</a>
-                    <a class="text-primary hover:underline dark:text-primary/90" href="{{ route('login') }}">Créer un compte</a> <!-- ou une autre route si tu crées une page inscription -->
+                    <a class="text-primary hover:underline dark:text-primary/90" href="{{ route('register') }}">Créer un compte</a> <!-- ou une autre route si tu crées une page inscription -->
                 </div>
             </div>
             <div class="text-center mt-6">

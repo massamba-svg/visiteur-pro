@@ -29,3 +29,7 @@ Route::get('/historique-des-visites', function () {
 Route::get('/gestion-des-roles', function () {
     return view('user-roles');
 })->name('roles.index');
+
+Route::get('/register', function () {
+    return view('register');
+})->name('register');
