@@ -8,10 +8,22 @@ use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $roles = Role::withCount('users')->get();
-        $users = User::with('role')->orderBy('name')->get();
+        
+        $query = User::with('role')->orderBy('name');
+        
+        // Recherche par nom ou email
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%");
+            });
+        }
+        
+        $users = $query->get();
         
         return view('roles.index', compact('roles', 'users'));
     }

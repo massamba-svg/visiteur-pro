@@ -9,13 +9,21 @@ use Carbon\Carbon;
 
 class VisitController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $visits = Visit::with(['client', 'user'])
-                       ->orderBy('arrival_time', 'desc')
-                       ->paginate(10);
+        $query = Visit::with(['client', 'user'])
+                       ->orderBy('arrival_time', 'desc');
         
-        return view('visits.index', compact('visits'));
+        // Recherche par nom du visiteur
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where('visitor_name', 'like', "%{$search}%");
+        }
+        
+        $visits = $query->paginate(10);
+        $clients = Client::orderBy('last_name')->get();
+        
+        return view('visits.index', compact('visits', 'clients'));
     }
 
     public function create()
@@ -31,9 +39,9 @@ class VisitController extends Controller
             'client_id' => 'nullable|exists:clients,id',
             'person_met' => 'required|string|max:255',
             'reason' => 'required|string|max:500',
+            'arrival_time' => 'required|date',
         ]);
 
-        $validated['arrival_time'] = Carbon::now();
         $validated['status'] = 'en_cours';
         $validated['user_id'] = auth()->id();
 

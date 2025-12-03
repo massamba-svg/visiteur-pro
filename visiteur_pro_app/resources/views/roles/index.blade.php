@@ -1,13 +1,13 @@
 <x-app-layout>
     <!-- PageHeading -->
     <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
-        <div class="flex flex-col gap-1">
-            <h1 class="text-3xl font-black leading-tight tracking-tight text-gray-900">Gestion des Rôles</h1>
-            <p class="text-base font-normal text-gray-500">Gérez les rôles et les permissions des utilisateurs.</p>
+        <div class="flex min-w-72 flex-col gap-2">
+            <p class="text-[#0d121b] text-3xl font-black leading-tight tracking-tight">Gestion des Rôles et Utilisateurs</p>
+            <p class="text-[#4c669a] text-base font-normal leading-normal">Ajoutez, modifiez et consultez les utilisateurs et leurs permissions.</p>
         </div>
-        <a href="{{ route('roles.create') }}" class="flex h-10 items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 text-white text-sm font-bold hover:bg-blue-700 transition-colors">
-            <span class="material-symbols-outlined" style="font-size: 20px;">add</span>
-            <span>Nouveau rôle</span>
+        <a href="{{ route('roles.create') }}" class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#135bec] text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] hover:bg-[#135bec]/90 transition-colors">
+            <span class="material-symbols-outlined text-base">add</span>
+            <span class="truncate">Ajouter un Utilisateur</span>
         </a>
     </div>
 
@@ -23,68 +23,127 @@
         </div>
     @endif
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <!-- Roles Section -->
-        <div class="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 class="text-lg font-bold text-gray-900 mb-4">Rôles disponibles</h2>
-            <div class="space-y-4">
-                @forelse($roles as $role)
-                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                        <div>
-                            <h3 class="font-medium text-gray-900">{{ $role->name }}</h3>
-                            <p class="text-sm text-gray-500">{{ $role->description ?? 'Aucune description' }}</p>
-                            <p class="text-xs text-gray-400 mt-1">{{ $role->users_count }} utilisateur(s)</p>
+    <!-- Search and Filter -->
+    <div class="flex flex-col md:flex-row justify-between gap-4 mb-6">
+        <div class="flex-grow">
+            <form action="{{ route('roles.index') }}" method="GET">
+                <label class="flex flex-col min-w-40 h-12 w-full">
+                    <div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+                        <div class="text-[#4c669a] flex border-r-0 border border-[#cfd7e7] bg-white items-center justify-center pl-4 rounded-l-lg">
+                            <span class="material-symbols-outlined">search</span>
                         </div>
-                        <div class="flex gap-2">
-                            <a href="{{ route('roles.edit', $role) }}" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
-                                <span class="material-symbols-outlined" style="font-size: 18px;">edit</span>
-                            </a>
-                            @if($role->users_count == 0)
-                                <form action="{{ route('roles.destroy', $role) }}" method="POST" class="inline" onsubmit="return confirm('Êtes-vous sûr?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors">
-                                        <span class="material-symbols-outlined" style="font-size: 18px;">delete</span>
-                                    </button>
-                                </form>
-                            @endif
-                        </div>
+                        <input 
+                            type="text"
+                            name="search"
+                            value="{{ request('search') }}"
+                            class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#0d121b] focus:outline-0 focus:ring-2 focus:ring-[#135bec]/50 border border-[#cfd7e7] bg-white h-full placeholder:text-[#4c669a] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" 
+                            placeholder="Rechercher un utilisateur par nom ou email..."
+                        />
                     </div>
-                @empty
-                    <p class="text-gray-500 text-center py-4">Aucun rôle défini.</p>
-                @endforelse
-            </div>
+                </label>
+            </form>
         </div>
+        <button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-4 bg-white text-[#0d121b] border border-[#cfd7e7] gap-2 text-sm font-bold leading-normal tracking-[0.015em] hover:bg-gray-50 transition-colors">
+            <span class="material-symbols-outlined text-base">filter_list</span>
+            <span class="truncate">Filtres</span>
+        </button>
+    </div>
 
-        <!-- Users Section -->
-        <div class="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 class="text-lg font-bold text-gray-900 mb-4">Attribution des rôles</h2>
-            <div class="space-y-4">
-                @foreach($users as $user)
-                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
-                                <span class="text-blue-600 font-bold">{{ strtoupper(substr($user->name, 0, 1)) }}</span>
-                            </div>
-                            <div>
-                                <h3 class="font-medium text-gray-900">{{ $user->name }}</h3>
-                                <p class="text-sm text-gray-500">{{ $user->email }}</p>
-                            </div>
-                        </div>
-                        <form action="{{ route('users.assign-role', $user) }}" method="POST" class="flex items-center gap-2">
+    <!-- Table -->
+    <div class="w-full">
+        <div class="flex overflow-hidden rounded-xl border border-[#cfd7e7] bg-white">
+            <table class="w-full">
+                <thead class="border-b border-[#cfd7e7]">
+                    <tr class="bg-[#f6f6f8]">
+                        <th class="px-4 py-3 text-left w-12">
+                            <input class="h-5 w-5 rounded-md border-[#cfd7e7] bg-transparent text-[#135bec] checked:bg-[#135bec] checked:border-[#135bec] focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+                        </th>
+                        <th class="px-4 py-3 text-left text-[#0d121b] text-sm font-medium leading-normal">Nom</th>
+                        <th class="px-4 py-3 text-left text-[#0d121b] text-sm font-medium leading-normal">Email</th>
+                        <th class="px-4 py-3 text-left text-[#0d121b] text-sm font-medium leading-normal">Rôle</th>
+                        <th class="px-4 py-3 text-left text-[#0d121b] text-sm font-medium leading-normal">Date de création</th>
+                        <th class="px-4 py-3 text-left text-[#4c669a] text-sm font-medium leading-normal">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($users as $user)
+                        <tr class="border-t border-[#cfd7e7] hover:bg-[#e7ebf3]/50 transition-colors">
+                            <td class="h-[72px] px-4 py-2 text-center">
+                                <input class="h-5 w-5 rounded-md border-[#cfd7e7] bg-transparent text-[#135bec] checked:bg-[#135bec] checked:border-[#135bec] focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+                            </td>
+                            <td class="h-[72px] px-4 py-2 text-[#0d121b] text-sm font-medium leading-normal">{{ $user->name }}</td>
+                            <td class="h-[72px] px-4 py-2 text-[#4c669a] text-sm font-normal leading-normal">{{ $user->email }}</td>
+                            <td class="h-[72px] px-4 py-2">
+                                <form action="{{ route('users.assign-role', $user) }}" method="POST" class="inline">
+                                    @csrf
+                                    <select 
+                                        name="role_id" 
+                                        class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium border-0 focus:ring-2 focus:ring-[#135bec]/50 {{ $user->role?->name === 'Administrateur' ? 'bg-[#135bec]/20 text-[#135bec]' : 'bg-[#e7ebf3] text-[#0d121b]' }}"
+                                        onchange="this.form.submit()"
+                                    >
+                                        <option value="">-- Aucun rôle --</option>
+                                        @foreach($roles as $role)
+                                            <option value="{{ $role->id }}" {{ $user->role_id == $role->id ? 'selected' : '' }}>
+                                                {{ $role->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </form>
+                            </td>
+                            <td class="h-[72px] px-4 py-2 text-[#4c669a] text-sm font-normal leading-normal">{{ $user->created_at->format('d/m/Y') }}</td>
+                            <td class="h-[72px] px-4 py-2">
+                                <div class="flex items-center gap-2">
+                                    <button class="p-2 rounded-md hover:bg-[#e7ebf3] text-[#4c669a] transition-colors">
+                                        <span class="material-symbols-outlined text-xl">edit</span>
+                                    </button>
+                                    <form action="{{ route('users.assign-role', $user) }}" method="POST" class="inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="button" class="p-2 rounded-md hover:bg-[#e7ebf3] text-[#4c669a] transition-colors">
+                                            <span class="material-symbols-outlined text-xl">delete</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="px-4 py-12 text-center text-[#4c669a]">
+                                <span class="material-symbols-outlined text-4xl mb-2">group</span>
+                                <p>Aucun utilisateur trouvé.</p>
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Roles Management Section (Optional - at the bottom) -->
+    <div class="mt-8">
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-bold text-[#0d121b]">Rôles disponibles</h2>
+            <a href="{{ route('roles.create') }}" class="text-[#135bec] text-sm font-medium hover:underline">+ Créer un rôle</a>
+        </div>
+        <div class="flex flex-wrap gap-3">
+            @foreach($roles as $role)
+                <div class="flex items-center gap-2 px-4 py-2 bg-white border border-[#cfd7e7] rounded-lg">
+                    <span class="inline-flex items-center rounded-full bg-[#135bec]/20 px-2 py-0.5 text-xs font-medium text-[#135bec]">{{ $role->users_count }}</span>
+                    <span class="text-sm font-medium text-[#0d121b]">{{ $role->name }}</span>
+                    <a href="{{ route('roles.edit', $role) }}" class="text-[#4c669a] hover:text-[#135bec]">
+                        <span class="material-symbols-outlined text-sm">edit</span>
+                    </a>
+                    @if($role->users_count == 0)
+                        <form action="{{ route('roles.destroy', $role) }}" method="POST" class="inline" onsubmit="return confirm('Supprimer ce rôle?')">
                             @csrf
-                            <select name="role_id" class="form-select rounded-lg border border-gray-300 bg-white h-9 px-3 text-sm text-gray-900 focus:border-blue-600" onchange="this.form.submit()">
-                                <option value="">-- Aucun rôle --</option>
-                                @foreach($roles as $role)
-                                    <option value="{{ $role->id }}" {{ $user->role_id == $role->id ? 'selected' : '' }}>
-                                        {{ $role->name }}
-                                    </option>
-                                @endforeach
-                            </select>
+                            @method('DELETE')
+                            <button type="submit" class="text-[#4c669a] hover:text-red-600">
+                                <span class="material-symbols-outlined text-sm">delete</span>
+                            </button>
                         </form>
-                    </div>
-                @endforeach
-            </div>
+                    @endif
+                </div>
+            @endforeach
         </div>
     </div>
 </x-app-layout>

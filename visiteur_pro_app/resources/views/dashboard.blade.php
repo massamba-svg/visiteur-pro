@@ -82,13 +82,13 @@
         <div class="lg:col-span-1 flex flex-col gap-4 rounded-xl border border-gray-200 p-6 bg-white">
             <p class="text-base font-bold text-gray-900">Visites par Semaine</p>
             <div class="grid min-h-[250px] grid-flow-col gap-4 grid-rows-[1fr_auto] items-end justify-items-center px-3 pt-6">
-                <div class="bg-blue-600/20 rounded-t w-full" style="height: 80%;"></div>
-                <div class="bg-blue-600/20 rounded-t w-full" style="height: 40%;"></div>
-                <div class="bg-blue-600/20 rounded-t w-full" style="height: 50%;"></div>
-                <div class="bg-blue-600/20 rounded-t w-full" style="height: 20%;"></div>
-                <div class="bg-blue-600/20 rounded-t w-full" style="height: 60%;"></div>
-                <div class="bg-blue-600/20 rounded-t w-full" style="height: 90%;"></div>
-                <div class="bg-blue-600 rounded-t w-full" style="height: 100%;"></div>
+                <div class="bg-[#135bec]/20 rounded-t w-full" style="height: 80%;"></div>
+                <div class="bg-[#135bec]/20 rounded-t w-full" style="height: 40%;"></div>
+                <div class="bg-[#135bec]/20 rounded-t w-full" style="height: 50%;"></div>
+                <div class="bg-[#135bec]/20 rounded-t w-full" style="height: 20%;"></div>
+                <div class="bg-[#135bec]/20 rounded-t w-full" style="height: 60%;"></div>
+                <div class="bg-[#135bec]/20 rounded-t w-full" style="height: 90%;"></div>
+                <div class="bg-[#135bec] rounded-t w-full" style="height: 100%;"></div>
                 <p class="text-gray-500 text-sm font-bold">Lun</p>
                 <p class="text-gray-500 text-sm font-bold">Mar</p>
                 <p class="text-gray-500 text-sm font-bold">Mer</p>
