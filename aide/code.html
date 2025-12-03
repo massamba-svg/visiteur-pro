@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html class="light" lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aide</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "primary": "#135bec",
+        "background-light": "#f6f6f8",
+        "background-dark": "#101622",
+      },
+      fontFamily: {
+        "display": ["Inter", "sans-serif"]
+      },
+      borderRadius: {
+        "DEFAULT": "0.25rem",
+        "lg": "0.5rem",
+        "xl": "0.75rem",
+        "full": "9999px"
+      },
+    },
+  },
+}
+</script>
+<style>
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24
+}
+.material-symbols-outlined.fill {
+  font-variation-settings: 'FILL' 1;
+}
+</style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark">
+<div class="relative flex min-h-screen w-full">
+<!-- SideNavBar -->
+<aside class="flex flex-col w-64 p-4 border-r border-gray-200 dark:border-gray-800 bg-white dark:bg-background-dark text-gray-800 dark:text-gray-200 shrink-0">
+<div class="flex items-center gap-3 mb-8">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="Kara SAMB avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBgavw87N5b5LhrSUYDy9ZaUIwrypQG-TlBTEtUv1Vqztmk0Lx1aQry5GmQcRCgKGVIYQxo6zNEfUF_NRPGG38ot5khYQNRj9-FhP41eFi2LjAQy-TBLGWmF0HpfS-HWz_4FFUwQXvuuscEBl5Lus6_2ETKsity1SgmIJ5IYe0EFwMZWUilPTNPeCBAY-1MVW8qOYUcW9AjbmEwzngC0u1CLfu0TykrHorXbuaAjBJgBJ-bxccwDYOmRiMEWcO5xSuxJSNCl2lDBA");'></div>
+<div class="flex flex-col">
+<h1 class="text-base font-bold text-gray-900 dark:text-white">Kara SAMB</h1>
+<p class="text-sm text-gray-500 dark:text-gray-400">Gestionnaire</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2 flex-grow">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10" href="dashboard.html">
+<span class="material-symbols-outlined">dashboard</span>
+<p class="text-sm font-medium">Tableau de Bord</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10" href="visits_register.html">
+<span class="material-symbols-outlined">calendar_month</span>
+<p class="text-sm font-medium">Visites</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10" href="clients.html">
+<span class="material-symbols-outlined">groups</span>
+<p class="text-sm font-medium">Clients</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10" href="reports.html">
+<span class="material-symbols-outlined">bar_chart</span>
+<p class="text-sm font-medium">Rapports</p>
+</a>
+</nav>
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10" href="settings.html">
+<span class="material-symbols-outlined">settings</span>
+<p class="text-sm font-medium">Paramètres</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary" href="help.html">
+<span class="material-symbols-outlined fill">help</span>
+<p class="text-sm font-medium">Aide</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10" href="login.html">
+<span class="material-symbols-outlined">logout</span>
+<p class="text-sm font-medium">Déconnexion</p>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 p-6 lg:p-8 overflow-y-auto">
+<div class="w-full max-w-4xl mx-auto">
+<!-- Page Header -->
+<div class="mb-8">
+<h1 class="text-3xl font-black leading-tight tracking-tight text-gray-900 dark:text-white">Centre d'Aide</h1>
+<p class="text-base font-normal text-gray-500 dark:text-gray-400 mt-2">Trouvez les réponses à vos questions</p>
+</div>
+
+<!-- Search Box -->
+<div class="mb-8">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">search</span>
+<input type="text" placeholder="Rechercher dans l'aide..." class="w-full pl-12 pr-4 py-3 rounded-lg bg-white dark:bg-white/5 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/50"/>
+</div>
+</div>
+
+<!-- Quick Links -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+<a href="#" class="p-4 rounded-lg bg-gradient-to-br from-blue-50 to-blue-100/50 dark:from-blue-900/20 dark:to-blue-900/10 border border-blue-200/50 dark:border-blue-900/30 hover:shadow-lg transition-shadow">
+<span class="material-symbols-outlined text-2xl text-blue-600 dark:text-blue-400 mb-2">rocket_launch</span>
+<h3 class="font-semibold text-gray-900 dark:text-white">Démarrage Rapide</h3>
+<p class="text-sm text-gray-600 dark:text-gray-300 mt-1">Guide pour les nouveaux utilisateurs</p>
+</a>
+
+<a href="#" class="p-4 rounded-lg bg-gradient-to-br from-green-50 to-green-100/50 dark:from-green-900/20 dark:to-green-900/10 border border-green-200/50 dark:border-green-900/30 hover:shadow-lg transition-shadow">
+<span class="material-symbols-outlined text-2xl text-green-600 dark:text-green-400 mb-2">tips_and_updates</span>
+<h3 class="font-semibold text-gray-900 dark:text-white">Conseils & Astuces</h3>
+<p class="text-sm text-gray-600 dark:text-gray-300 mt-1">Optimisez votre utilisation</p>
+</a>
+
+<a href="#" class="p-4 rounded-lg bg-gradient-to-br from-purple-50 to-purple-100/50 dark:from-purple-900/20 dark:to-purple-900/10 border border-purple-200/50 dark:border-purple-900/30 hover:shadow-lg transition-shadow">
+<span class="material-symbols-outlined text-2xl text-purple-600 dark:text-purple-400 mb-2">support_agent</span>
+<h3 class="font-semibold text-gray-900 dark:text-white">Contacter le Support</h3>
+<p class="text-sm text-gray-600 dark:text-gray-300 mt-1">Parler avec notre équipe</p>
+</a>
+</div>
+
+<!-- FAQ Sections -->
+<div class="space-y-6">
+<!-- Gestion des Visites -->
+<div class="rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden">
+<button class="w-full p-6 bg-white dark:bg-background-dark hover:bg-gray-50 dark:hover:bg-white/5 flex items-center justify-between cursor-pointer transition-colors">
+<div class="flex items-center gap-4 text-left">
+<span class="material-symbols-outlined text-2xl text-blue-600 dark:text-blue-400">calendar_month</span>
+<div>
+<h3 class="font-bold text-gray-900 dark:text-white">Gestion des Visites</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Comment ajouter, modifier et gérer les visites</p>
+</div>
+</div>
+<span class="material-symbols-outlined">expand_more</span>
+</button>
+<div class="border-t border-gray-200 dark:border-gray-800 p-6 bg-gray-50/50 dark:bg-white/2">
+<div class="space-y-4">
+<div>
+<h4 class="font-semibold text-gray-900 dark:text-white mb-2">Comment ajouter une nouvelle visite ?</h4>
+<p class="text-sm text-gray-700 dark:text-gray-300 mb-2">Cliquez sur le bouton « Ajouter une visite » dans le tableau de bord ou allez dans la section Visites. Remplissez le formulaire avec les informations requises (nom du visiteur, entreprise, personne rencontrée, motif de la visite et heure d'arrivée).</p>
+</div>
+<div>
+<h4 class="font-semibold text-gray-900 dark:text-white mb-2">Comment enregistrer le départ d'un visiteur ?</h4>
+<p class="text-sm text-gray-700 dark:text-gray-300 mb-2">Allez dans l'historique des visites récentes, trouvez le visiteur dont l'heure de départ n'est pas enregistrée, et cliquez sur le bouton « Enregistrer le Départ ».</p>
+</div>
+<div>
+<h4 class="font-semibold text-gray-900 dark:text-white mb-2">Puis-je modifier une visite enregistrée ?</h4>
+<p class="text-sm text-gray-700 dark:text-gray-300">Oui, vous pouvez accéder à l'historique, sélectionner une visite, et utiliser le bouton d'édition pour la modifier. Cependant, les visites terminées ne peuvent être supprimées.</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Gestion des Clients -->
+<div class="rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden">
+<button class="w-full p-6 bg-white dark:bg-background-dark hover:bg-gray-50 dark:hover:bg-white/5 flex items-center justify-between cursor-pointer transition-colors">
+<div class="flex items-center gap-4 text-left">
+<span class="material-symbols-outlined text-2xl text-green-600 dark:text-green-400">groups</span>
+<div>
+<h3 class="font-bold text-gray-900 dark:text-white">Gestion des Clients</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Ajouter, consulter et gérer les clients</p>
+</div>
+</div>
+<span class="material-symbols-outlined">expand_more</span>
+</button>
+<div class="border-t border-gray-200 dark:border-gray-800 p-6 bg-gray-50/50 dark:bg-white/2">
+<div class="space-y-4">
+<div>
+<h4 class="font-semibold text-gray-900 dark:text-white mb-2">Ajouter un nouveau client</h4>
+<p class="text-sm text-gray-700 dark:text-gray-300">Accédez à la section Clients, cliquez sur « Ajouter un Client », puis remplissez les informations essentielles : nom, entreprise, email et téléphone.</p>
+</div>
+<div>
+<h4 class="font-semibold text-gray-900 dark:text-white mb-2">Consulter l'historique d'un client</h4>
+<p class="text-sm text-gray-700 dark:text-gray-300">Sélectionnez un client dans la liste pour voir ses détails complets et l'historique de toutes ses visites avec les dates et les motifs.</p>
+</div>
+<div>
+<h4 class="font-semibold text-gray-900 dark:text-white mb-2">Comment filtrer les clients ?</h4>
+<p class="text-sm text-gray-700 dark:text-gray-300">Utilisez la barre de recherche en haut de la section Clients pour filtrer par nom, entreprise ou email. Des options de tri sont également disponibles.</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Gestion des Rapports -->
+<div class="rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden">
+<button class="w-full p-6 bg-white dark:bg-background-dark hover:bg-gray-50 dark:hover:bg-white/5 flex items-center justify-between cursor-pointer transition-colors">
+<div class="flex items-center gap-4 text-left">
+<span class="material-symbols-outlined text-2xl text-red-600 dark:text-red-400">bar_chart</span>
+<div>
+<h3 class="font-bold text-gray-900 dark:text-white">Gestion des Rapports</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Créer, consulter et exporter des rapports</p>
+</div>
+</div>
+<span class="material-symbols-outlined">expand_more</span>
+</button>
+<div class="border-t border-gray-200 dark:border-gray-800 p-6 bg-gray-50/50 dark:bg-white/2">
+<div class="space-y-4">
+<div>
+<h4 class="font-semibold text-gray-900 dark:text-white mb-2">Comment créer un nouveau rapport ?</h4>
+<p class="text-sm text-gray-700 dark:text-gray-300">Allez dans la section Rapports, cliquez sur « Créer un Rapport », choisissez le type de rapport souhaité, puis suivez les étapes de configuration.</p>
+</div>
+<div>
+<h4 class="font-semibold text-gray-900 dark:text-white mb-2">Puis-je personnaliser les rapports ?</h4>
+<p class="text-sm text-gray-700 dark:text-gray-300">Oui, vous pouvez sélectionner les données à inclure, choisir le format de présentation, et appliquer des filtres pour affiner les informations affichées.</p>
+</div>
+<div>
+<h4 class="font-semibold text-gray-900 dark:text-white mb-2">Comment exporter un rapport ?</h4>
+<p class="text-sm text-gray-700 dark:text-gray-300">Après avoir généré un rapport, cliquez sur le bouton « Exporter » et choisissez le format souhaité (PDF, Excel, etc.).</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

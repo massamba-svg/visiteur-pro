@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html class="light" lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Paramètres</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "primary": "#135bec",
+        "background-light": "#f6f6f8",
+        "background-dark": "#101622",
+      },
+      fontFamily: {
+        "display": ["Inter", "sans-serif"]
+      },
+      borderRadius: {
+        "DEFAULT": "0.25rem",
+        "lg": "0.5rem",
+        "xl": "0.75rem",
+        "full": "9999px"
+      },
+    },
+  },
+}
+</script>
+<style>
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24
+}
+.material-symbols-outlined.fill {
+  font-variation-settings: 'FILL' 1;
+}
+</style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark">
+<div class="relative flex min-h-screen w-full">
+<!-- SideNavBar -->
+<aside class="flex flex-col w-64 p-4 border-r border-gray-200 dark:border-gray-800 bg-white dark:bg-background-dark text-gray-800 dark:text-gray-200 shrink-0">
+<div class="flex items-center gap-3 mb-8">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="Kara SAMB avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBgavw87N5b5LhrSUYDy9ZaUIwrypQG-TlBTEtUv1Vqztmk0Lx1aQry5GmQcRCgKGVIYQxo6zNEfUF_NRPGG38ot5khYQNRj9-FhP41eFi2LjAQy-TBLGWmF0HpfS-HWz_4FFUwQXvuuscEBl5Lus6_2ETKsity1SgmIJ5IYe0EFwMZWUilPTNPeCBAY-1MVW8qOYUcW9AjbmEwzngC0u1CLfu0TykrHorXbuaAjBJgBJ-bxccwDYOmRiMEWcO5xSuxJSNCl2lDBA");'></div>
+<div class="flex flex-col">
+<h1 class="text-base font-bold text-gray-900 dark:text-white">Kara SAMB</h1>
+<p class="text-sm text-gray-500 dark:text-gray-400">Gestionnaire</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2 flex-grow">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10" href="dashboard.html">
+<span class="material-symbols-outlined">dashboard</span>
+<p class="text-sm font-medium">Tableau de Bord</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10" href="visits_register.html">
+<span class="material-symbols-outlined">calendar_month</span>
+<p class="text-sm font-medium">Visites</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10" href="clients.html">
+<span class="material-symbols-outlined">groups</span>
+<p class="text-sm font-medium">Clients</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10" href="reports.html">
+<span class="material-symbols-outlined">bar_chart</span>
+<p class="text-sm font-medium">Rapports</p>
+</a>
+</nav>
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary" href="settings.html">
+<span class="material-symbols-outlined fill">settings</span>
+<p class="text-sm font-medium">Paramètres</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10" href="help.html">
+<span class="material-symbols-outlined">help</span>
+<p class="text-sm font-medium">Aide</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10" href="login.html">
+<span class="material-symbols-outlined">logout</span>
+<p class="text-sm font-medium">Déconnexion</p>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 p-6 lg:p-8 overflow-y-auto">
+<div class="w-full max-w-4xl mx-auto">
+<!-- Page Heading -->
+<div class="mb-8">
+<h1 class="text-3xl font-black leading-tight tracking-tight text-gray-900 dark:text-white">Paramètres</h1>
+<p class="text-base font-normal text-gray-500 dark:text-gray-400 mt-2">Gérez votre compte et vos préférences</p>
+</div>
+
+<!-- Account Information -->
+<div class="rounded-xl border border-gray-200 dark:border-gray-800 p-6 bg-white dark:bg-background-dark mb-6">
+<div class="flex items-center gap-4 mb-6">
+<span class="material-symbols-outlined text-3xl text-primary">account_circle</span>
+<div>
+<h2 class="text-lg font-bold text-gray-900 dark:text-white">Informations du Compte</h2>
+<p class="text-sm text-gray-500 dark:text-gray-400">Vos données personnelles</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Nom Complet</label>
+<input type="text" value="Kara SAMB" readonly class="w-full px-4 py-2 rounded-lg bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email</label>
+<input type="email" value="kara.samb@karasamb.com" readonly class="w-full px-4 py-2 rounded-lg bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Rôle</label>
+<input type="text" value="Gestionnaire Système" readonly class="w-full px-4 py-2 rounded-lg bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Date d'Inscription</label>
+<input type="text" value="15 Juillet 2023" readonly class="w-full px-4 py-2 rounded-lg bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white"/>
+</div>
+</div>
+</div>
+
+<!-- Preferences Générales -->
+<div class="rounded-xl border border-gray-200 dark:border-gray-800 p-6 bg-white dark:bg-background-dark mb-6">
+<div class="flex items-center gap-4 mb-6">
+<span class="material-symbols-outlined text-3xl text-purple-500">tune</span>
+<div>
+<h2 class="text-lg font-bold text-gray-900 dark:text-white">Préférences Générales</h2>
+<p class="text-sm text-gray-500 dark:text-gray-400">Personnalisez votre expérience</p>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-white/5 rounded-lg">
+<div>
+<p class="font-medium text-gray-900 dark:text-white">Mode Sombre</p>
+<p class="text-sm text-gray-500 dark:text-gray-400">Activer le thème sombre</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input type="checkbox" checked class="sr-only peer"/>
+<div class="w-11 h-6 bg-gray-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary/50 rounded-full peer bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+
+<div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-white/5 rounded-lg">
+<div>
+<p class="font-medium text-gray-900 dark:text-white">Notifications Email</p>
+<p class="text-sm text-gray-500 dark:text-gray-400">Recevoir les alertes par email</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input type="checkbox" checked class="sr-only peer"/>
+<div class="w-11 h-6 bg-gray-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary/50 rounded-full peer bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+
+<div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-white/5 rounded-lg">
+<div>
+<p class="font-medium text-gray-900 dark:text-white">Notifications Système</p>
+<p class="text-sm text-gray-500 dark:text-gray-400">Notifications desktop en temps réel</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input type="checkbox" class="sr-only peer"/>
+<div class="w-11 h-6 bg-gray-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary/50 rounded-full peer bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+
+<div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-white/5 rounded-lg">
+<div>
+<p class="font-medium text-gray-900 dark:text-white">Données Analytiques</p>
+<p class="text-sm text-gray-500 dark:text-gray-400">Nous aider à améliorer l'app</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input type="checkbox" checked class="sr-only peer"/>
+<div class="w-11 h-6 bg-gray-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary/50 rounded-full peer bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</div>
+
+<!-- Security & Privacy -->
+<div class="rounded-xl border border-gray-200 dark:border-gray-800 p-6 bg-white dark:bg-background-dark mb-6">
+<div class="flex items-center gap-4 mb-6">
+<span class="material-symbols-outlined text-3xl text-red-500">security</span>
+<div>
+<h2 class="text-lg font-bold text-gray-900 dark:text-white">Sécurité & Confidentialité</h2>
+<p class="text-sm text-gray-500 dark:text-gray-400">Protégez votre compte</p>
+</div>
+</div>
+<div class="space-y-3">
+<button class="w-full flex items-center justify-between p-4 bg-gray-50 dark:bg-white/5 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
+<div class="text-left">
+<p class="font-medium text-gray-900 dark:text-white">Changer le Mot de Passe</p>
+<p class="text-sm text-gray-500 dark:text-gray-400">Dernière modification: 3 mois ago</p>
+</div>
+<span class="material-symbols-outlined text-gray-400">arrow_forward</span>
+</button>
+
+<button class="w-full flex items-center justify-between p-4 bg-gray-50 dark:bg-white/5 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
+<div class="text-left">
+<p class="font-medium text-gray-900 dark:text-white">Authentification à Deux Facteurs</p>
+<p class="text-sm text-gray-500 dark:text-gray-400"><span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 text-xs font-semibold">Activée</span></p>
+</div>
+<span class="material-symbols-outlined text-gray-400">arrow_forward</span>
+</button>
+
+<button class="w-full flex items-center justify-between p-4 bg-gray-50 dark:bg-white/5 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
+<div class="text-left">
+<p class="font-medium text-gray-900 dark:text-white">Gérer les Sessions Actives</p>
+<p class="text-sm text-gray-500 dark:text-gray-400">1 session active actuellement</p>
+</div>
+<span class="material-symbols-outlined text-gray-400">arrow_forward</span>
+</button>
+
+<button class="w-full flex items-center justify-between p-4 bg-gray-50 dark:bg-white/5 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
+<div class="text-left">
+<p class="font-medium text-gray-900 dark:text-white">Télécharger vos Données</p>
+<p class="text-sm text-gray-500 dark:text-gray-400">Exporter un archivage personnel</p>
+</div>
+<span class="material-symbols-outlined text-gray-400">arrow_forward</span>
+</button>
+</div>
+</div>
+
+<!-- Integrations -->
+<div class="rounded-xl border border-gray-200 dark:border-gray-800 p-6 bg-white dark:bg-background-dark mb-6">
+<div class="flex items-center gap-4 mb-6">
+<span class="material-symbols-outlined text-3xl text-blue-500">extension</span>
+<div>
+<h2 class="text-lg font-bold text-gray-900 dark:text-white">Intégrations API</h2>
+<p class="text-sm text-gray-500 dark:text-gray-400">Connectez d'autres applications</p>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50 to-blue-100/50 dark:from-blue-900/20 dark:to-blue-900/10 rounded-lg">
+<div>
+<p class="font-medium text-gray-900 dark:text-white">Clé API</p>
+<p class="text-sm text-gray-500 dark:text-gray-400">sk_live_51234567890abcdef...</p>
+</div>
+<button class="px-3 py-2 bg-primary text-white text-sm font-semibold rounded-lg hover:bg-primary/90">Copier</button>
+</div>
+</div>
+
+<!-- Danger Zone -->
+<div class="rounded-xl border border-red-200 dark:border-red-900/50 p-6 bg-red-50 dark:bg-red-900/10">
+<div class="flex items-center gap-4 mb-6">
+<span class="material-symbols-outlined text-3xl text-red-600 dark:text-red-400">warning</span>
+<div>
+<h2 class="text-lg font-bold text-gray-900 dark:text-white">Zone Dangereuse</h2>
+<p class="text-sm text-gray-600 dark:text-gray-300">Actions irréversibles</p>
+</div>
+</div>
+<button class="w-full flex items-center justify-between p-4 bg-red-100 dark:bg-red-900/30 rounded-lg hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors text-red-700 dark:text-red-400 font-medium">
+<div class="text-left">
+<p>Supprimer le Compte</p>
+<p class="text-sm font-normal text-red-600 dark:text-red-500">Cette action est définitive</p>
+</div>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</main>
+</div>
+</body>
+</html>
