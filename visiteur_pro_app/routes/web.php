@@ -15,34 +15,59 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+// Routes accessibles à tous les utilisateurs authentifiés
 Route::middleware(['auth', 'verified'])->group(function () {
-    // Dashboard
+    // Dashboard - Tous les rôles
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     
-    // Visits
-    Route::resource('visits', VisitController::class);
+    // Visites - Consultation et ajout pour tous
+    Route::get('/visits', [VisitController::class, 'index'])->name('visits.index');
+    Route::get('/visits/create', [VisitController::class, 'create'])->name('visits.create');
+    Route::post('/visits', [VisitController::class, 'store'])->name('visits.store');
+    Route::get('/visits/{visit}', [VisitController::class, 'show'])->name('visits.show');
     Route::post('/visits/{visit}/end', [VisitController::class, 'endVisit'])->name('visits.end');
     
-    // Clients
-    Route::resource('clients', ClientController::class);
+    // Clients - Consultation pour tous
+    Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
+    Route::get('/clients/{client}', [ClientController::class, 'show'])->name('clients.show');
     
-    // History
+    // Historique - Tous les rôles (lecture)
     Route::get('/history', [HistoryController::class, 'index'])->name('history.index');
     Route::get('/history/{visit}', [HistoryController::class, 'show'])->name('history.show');
     
-    // Roles
-    Route::resource('roles', RoleController::class)->except(['show']);
-    Route::post('/users/{user}/assign-role', [RoleController::class, 'assignRole'])->name('users.assign-role');
-    
-    // Settings
+    // Paramètres - Tous les rôles
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
     Route::post('/settings/preferences', [SettingsController::class, 'updatePreferences'])->name('settings.preferences');
     
-    // Reports
-    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
-    
-    // Help
+    // Aide - Tous les rôles
     Route::get('/help', [HelpController::class, 'index'])->name('help.index');
+});
+
+// Routes pour Administrateur et Gestionnaire
+Route::middleware(['auth', 'verified', 'role:Administrateur,Gestionnaire'])->group(function () {
+    // Visites - Modification
+    Route::get('/visits/{visit}/edit', [VisitController::class, 'edit'])->name('visits.edit');
+    Route::put('/visits/{visit}', [VisitController::class, 'update'])->name('visits.update');
+    Route::delete('/visits/{visit}', [VisitController::class, 'destroy'])->name('visits.destroy');
+    
+    // Clients - Création et modification
+    Route::get('/clients/create', [ClientController::class, 'create'])->name('clients.create');
+    Route::post('/clients', [ClientController::class, 'store'])->name('clients.store');
+    Route::get('/clients/{client}/edit', [ClientController::class, 'edit'])->name('clients.edit');
+    Route::put('/clients/{client}', [ClientController::class, 'update'])->name('clients.update');
+    
+    // Rapports - Admin et Gestionnaire
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+});
+
+// Routes pour Administrateur uniquement
+Route::middleware(['auth', 'verified', 'role:Administrateur'])->group(function () {
+    // Gestion des rôles
+    Route::resource('roles', RoleController::class)->except(['show']);
+    Route::post('/users/{user}/assign-role', [RoleController::class, 'assignRole'])->name('users.assign-role');
+    
+    // Suppression de clients
+    Route::delete('/clients/{client}', [ClientController::class, 'destroy'])->name('clients.destroy');
 });
 
 Route::middleware('auth')->group(function () {

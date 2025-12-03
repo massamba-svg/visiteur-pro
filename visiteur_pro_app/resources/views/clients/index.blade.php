@@ -39,11 +39,13 @@
                             </div>
                         </label>
                     </form>
-                    <!-- Add Client Button -->
-                    <a href="{{ route('clients.create') }}" class="flex w-full mt-4 min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#135bec] text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em]">
-                        <span class="material-symbols-outlined text-base">add</span>
-                        <span class="truncate">Ajouter un Client</span>
-                    </a>
+                    <!-- Add Client Button - Admin et Gestionnaire uniquement -->
+                    @if(Auth::user()->canManageClients())
+                        <a href="{{ route('clients.create') }}" class="flex w-full mt-4 min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#135bec] text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em]">
+                            <span class="material-symbols-outlined text-base">add</span>
+                            <span class="truncate">Ajouter un Client</span>
+                        </a>
+                    @endif
                 </div>
                 <!-- Client List -->
                 <div class="px-2 pb-2 flex flex-col gap-1 max-h-[calc(100vh-320px)] overflow-y-auto">
@@ -80,18 +82,22 @@
                     <div class="flex justify-between items-center p-4 border-b border-gray-200">
                         <h2 class="text-gray-900 text-lg font-bold">Détails de {{ $selectedClient->first_name }} {{ $selectedClient->last_name }}</h2>
                         <div class="flex gap-2">
-                            <a href="{{ route('clients.edit', $selectedClient) }}" class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-[#135bec]/10 text-[#135bec] gap-2 text-sm font-bold leading-normal tracking-[0.015em]">
-                                <span class="material-symbols-outlined text-base">edit</span>
-                                <span class="truncate">Modifier</span>
-                            </a>
-                            <form action="{{ route('clients.destroy', $selectedClient) }}" method="POST" class="inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce client?')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-red-100 text-red-600 gap-2 text-sm font-bold leading-normal tracking-[0.015em]">
-                                    <span class="material-symbols-outlined text-base">delete</span>
-                                    <span class="truncate">Supprimer</span>
-                                </button>
-                            </form>
+                            @if(Auth::user()->canManageClients())
+                                <a href="{{ route('clients.edit', $selectedClient) }}" class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-[#135bec]/10 text-[#135bec] gap-2 text-sm font-bold leading-normal tracking-[0.015em]">
+                                    <span class="material-symbols-outlined text-base">edit</span>
+                                    <span class="truncate">Modifier</span>
+                                </a>
+                            @endif
+                            @if(Auth::user()->canDeleteClients())
+                                <form action="{{ route('clients.destroy', $selectedClient) }}" method="POST" class="inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce client?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-red-100 text-red-600 gap-2 text-sm font-bold leading-normal tracking-[0.015em]">
+                                        <span class="material-symbols-outlined text-base">delete</span>
+                                        <span class="truncate">Supprimer</span>
+                                    </button>
+                                </form>
+                            @endif
                         </div>
                     </div>
 
