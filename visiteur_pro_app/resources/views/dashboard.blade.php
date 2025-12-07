@@ -23,22 +23,30 @@
         <div class="flex flex-col gap-2 rounded-xl p-6 bg-white border border-gray-200">
             <p class="text-base font-medium text-gray-600">Visiteurs Actuels</p>
             <p class="text-3xl font-bold text-gray-900">{{ $stats['current_visitors'] ?? 0 }}</p>
-            <p class="text-base font-medium text-green-600">+5%</p>
+            <p class="text-base font-medium {{ $stats['current_visitors_trend'] >= 0 ? 'text-green-600' : 'text-red-600' }}">
+                {{ $stats['current_visitors_trend'] >= 0 ? '+' : '' }}{{ $stats['current_visitors_trend'] }}%
+            </p>
         </div>
         <div class="flex flex-col gap-2 rounded-xl p-6 bg-white border border-gray-200">
             <p class="text-base font-medium text-gray-600">Visites du Jour</p>
             <p class="text-3xl font-bold text-gray-900">{{ $stats['today_visits'] ?? 0 }}</p>
-            <p class="text-base font-medium text-red-600">-2%</p>
+            <p class="text-base font-medium {{ $stats['today_visits_trend'] >= 0 ? 'text-green-600' : 'text-red-600' }}">
+                {{ $stats['today_visits_trend'] >= 0 ? '+' : '' }}{{ $stats['today_visits_trend'] }}%
+            </p>
         </div>
         <div class="flex flex-col gap-2 rounded-xl p-6 bg-white border border-gray-200">
             <p class="text-base font-medium text-gray-600">Visites de la Semaine</p>
             <p class="text-3xl font-bold text-gray-900">{{ $stats['week_visits'] ?? 0 }}</p>
-            <p class="text-base font-medium text-green-600">+10%</p>
+            <p class="text-base font-medium {{ $stats['week_visits_trend'] >= 0 ? 'text-green-600' : 'text-red-600' }}">
+                {{ $stats['week_visits_trend'] >= 0 ? '+' : '' }}{{ $stats['week_visits_trend'] }}%
+            </p>
         </div>
         <div class="flex flex-col gap-2 rounded-xl p-6 bg-white border border-gray-200">
             <p class="text-base font-medium text-gray-600">Total Clients</p>
             <p class="text-3xl font-bold text-gray-900">{{ $stats['total_clients'] ?? 0 }}</p>
-            <p class="text-base font-medium text-green-600">+1.2%</p>
+            <p class="text-base font-medium {{ $stats['clients_trend'] >= 0 ? 'text-green-600' : 'text-red-600' }}">
+                {{ $stats['clients_trend'] >= 0 ? '+' : '' }}{{ $stats['clients_trend'] }}%
+            </p>
         </div>
     </div>
 
@@ -53,7 +61,6 @@
                 </div>
                 <div class="flex gap-1 items-center">
                     <p class="text-4xl font-bold text-gray-900">{{ $stats['total_visits'] ?? 0 }}</p>
-                    <p class="text-base font-medium text-green-600 mt-2">+8%</p>
                 </div>
             </div>
             <div class="flex min-h-[250px] flex-1 flex-col gap-8 py-4">
