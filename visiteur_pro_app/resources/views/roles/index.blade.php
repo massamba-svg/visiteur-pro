@@ -5,7 +5,7 @@
             <p class="text-[#0d121b] text-3xl font-black leading-tight tracking-tight">Gestion des Rôles et Utilisateurs</p>
             <p class="text-[#4c669a] text-base font-normal leading-normal">Ajoutez, modifiez et consultez les utilisateurs et leurs permissions.</p>
         </div>
-        <a href="{{ route('roles.create') }}" class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#135bec] text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] hover:bg-[#135bec]/90 transition-colors">
+        <a href="{{ route('users.create') }}" class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#135bec] text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] hover:bg-[#135bec]/90 transition-colors">
             <span class="material-symbols-outlined text-base">add</span>
             <span class="truncate">Ajouter un Utilisateur</span>
         </a>
@@ -93,13 +93,13 @@
                             <td class="h-[72px] px-4 py-2 text-[#4c669a] text-sm font-normal leading-normal">{{ $user->created_at->format('d/m/Y') }}</td>
                             <td class="h-[72px] px-4 py-2">
                                 <div class="flex items-center gap-2">
-                                    <button class="p-2 rounded-md hover:bg-[#e7ebf3] text-[#4c669a] transition-colors">
+                                    <a href="{{ route('users.edit', $user) }}" class="p-2 rounded-md hover:bg-[#e7ebf3] text-[#4c669a] transition-colors">
                                         <span class="material-symbols-outlined text-xl">edit</span>
-                                    </button>
-                                    <form action="{{ route('users.assign-role', $user) }}" method="POST" class="inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur?')">
+                                    </a>
+                                    <form action="{{ route('users.destroy', $user) }}" method="POST" class="inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="button" class="p-2 rounded-md hover:bg-[#e7ebf3] text-[#4c669a] transition-colors">
+                                        <button type="submit" class="p-2 rounded-md hover:bg-[#e7ebf3] text-[#4c669a] transition-colors">
                                             <span class="material-symbols-outlined text-xl">delete</span>
                                         </button>
                                     </form>
@@ -123,7 +123,7 @@
     <div class="mt-8">
         <div class="flex items-center justify-between mb-4">
             <h2 class="text-xl font-bold text-[#0d121b]">Rôles disponibles</h2>
-            <a href="{{ route('roles.create') }}" class="text-[#135bec] text-sm font-medium hover:underline">+ Créer un rôle</a>
+            <!-- <a href="{{ route('roles.create') }}" class="text-[#135bec] text-sm font-medium hover:underline">+ Créer un rôle</a> -->
         </div>
         <div class="flex flex-wrap gap-3">
             @foreach($roles as $role)

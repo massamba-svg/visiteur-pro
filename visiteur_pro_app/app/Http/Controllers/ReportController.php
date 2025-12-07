@@ -7,6 +7,7 @@ use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ReportController extends Controller
 {
@@ -114,5 +115,57 @@ class ReportController extends Controller
             'periodDetails',
             'visitsTrend'
         ));
+    }
+
+    /**
+     * Export report to PDF
+     */
+    public function exportPdf()
+    {
+        // Get the same data as index
+        $totalVisits = Visit::count();
+        $activeClients = Client::whereHas('visits')->count();
+        $completedVisits = Visit::whereNotNull('departure_time')->count();
+        $conversionRate = $totalVisits > 0 ? round(($completedVisits / $totalVisits) * 100) : 0;
+        
+        $avgDuration = Visit::whereNotNull('departure_time')
+            ->selectRaw('AVG(TIMESTAMPDIFF(MINUTE, arrival_time, departure_time)) as avg_duration')
+            ->value('avg_duration');
+        $avgDuration = $avgDuration ? round($avgDuration) : 0;
+        
+        $monthlyVisits = Visit::selectRaw('MONTH(arrival_time) as month, YEAR(arrival_time) as year, COUNT(*) as count')
+            ->where('arrival_time', '>=', Carbon::now()->subMonths(6))
+            ->groupBy('year', 'month')
+            ->orderBy('year')
+            ->orderBy('month')
+            ->get()
+            ->map(function ($item) {
+                $date = Carbon::createFromDate($item->year, $item->month, 1);
+                return [
+                    'month' => $date->translatedFormat('M Y'),
+                    'count' => $item->count,
+                ];
+            });
+        
+        $topClients = Client::withCount('visits')
+            ->orderBy('visits_count', 'desc')
+            ->take(5)
+            ->get();
+        
+        $visitsByPurpose = Visit::selectRaw('reason, COUNT(*) as count')
+            ->groupBy('reason')
+            ->get();
+
+        $pdf = Pdf::loadView('reports.pdf', compact(
+            'totalVisits',
+            'activeClients',
+            'conversionRate',
+            'avgDuration',
+            'monthlyVisits',
+            'topClients',
+            'visitsByPurpose'
+        ));
+
+        return $pdf->download('rapport-activite-' . now()->format('Y-m-d') . '.pdf');
     }
 }

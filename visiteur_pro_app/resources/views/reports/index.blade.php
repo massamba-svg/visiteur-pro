@@ -7,10 +7,10 @@
                 <p class="text-base font-normal text-gray-500">Analyse complète des visites et performance</p>
             </div>
             <div class="flex gap-2">
-                <button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#135bec] text-white hover:bg-[#135bec]/90 text-sm font-semibold">
+                <a href="{{ route('reports.export-pdf') }}" class="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#135bec] text-white hover:bg-[#135bec]/90 text-sm font-semibold">
                     <span class="material-symbols-outlined text-lg">download</span>
                     <span>Exporter PDF</span>
-                </button>
+                </a>
                 <button class="flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-200 hover:bg-gray-50 text-sm font-semibold">
                     <span class="material-symbols-outlined text-lg">date_range</span>
                     <span>Période</span>
