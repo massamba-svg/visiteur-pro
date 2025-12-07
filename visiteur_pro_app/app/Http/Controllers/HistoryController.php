@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Visit;
 use App\Models\Client;
 use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade\Pdf;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class HistoryController extends Controller
 {
@@ -134,7 +134,7 @@ class HistoryController extends Controller
 
         $visits = $query->get();
 
-        $pdf = Pdf::loadView('history.pdf', compact('visits'));
+        $pdf = PDF::loadView('history.pdf', compact('visits'));
 
         return $pdf->download('historique-visites-' . now()->format('Y-m-d') . '.pdf');
     }

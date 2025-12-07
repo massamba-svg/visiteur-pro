@@ -32,6 +32,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     
     // Historique - Tous les rôles (lecture)
     Route::get('/history', [HistoryController::class, 'index'])->name('history.index');
+    Route::get('/history/export-pdf', [HistoryController::class, 'exportPdf'])->name('history.export-pdf');
     Route::get('/history/{visit}', [HistoryController::class, 'show'])->name('history.show');
     
     // Paramètres - Tous les rôles
@@ -59,9 +60,6 @@ Route::middleware(['auth', 'verified', 'role:Administrateur,Gestionnaire'])->gro
     // Rapports - Admin et Gestionnaire
     Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
     Route::get('/reports/export-pdf', [ReportController::class, 'exportPdf'])->name('reports.export-pdf');
-    
-    // Historique - Exportation
-    Route::get('/history/export-pdf', [HistoryController::class, 'exportPdf'])->name('history.export-pdf');
 });
 
 // Routes pour Administrateur uniquement

@@ -7,7 +7,7 @@ use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
-use Barryvdh\DomPDF\Facade\Pdf;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class ReportController extends Controller
 {
@@ -156,7 +156,7 @@ class ReportController extends Controller
             ->groupBy('reason')
             ->get();
 
-        $pdf = Pdf::loadView('reports.pdf', compact(
+        $pdf = PDF::loadView('reports.pdf', compact(
             'totalVisits',
             'activeClients',
             'conversionRate',
