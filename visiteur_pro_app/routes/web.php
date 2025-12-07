@@ -39,6 +39,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
     Route::post('/settings/preferences', [SettingsController::class, 'updatePreferences'])->name('settings.preferences');
     
+    // Historique - Exportation
+    Route::get('/history/export-pdf', [HistoryController::class, 'exportPdf'])->name('history.export-pdf');
+
     // Aide - Tous les rôles
     Route::get('/help', [HelpController::class, 'index'])->name('help.index');
 });
