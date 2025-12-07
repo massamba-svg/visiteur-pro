@@ -38,6 +38,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
     Route::post('/settings/preferences', [SettingsController::class, 'updatePreferences'])->name('settings.preferences');
     
+    // Historique - Exportation
+    Route::get('/history/export-pdf', [HistoryController::class, 'exportPdf'])->name('history.export-pdf');
+
     // Aide - Tous les rôles
     Route::get('/help', [HelpController::class, 'index'])->name('help.index');
 });
@@ -60,8 +63,7 @@ Route::middleware(['auth', 'verified', 'role:Administrateur,Gestionnaire'])->gro
     Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
     Route::get('/reports/export-pdf', [ReportController::class, 'exportPdf'])->name('reports.export-pdf');
     
-    // Historique - Exportation
-    Route::get('/history/export-pdf', [HistoryController::class, 'exportPdf'])->name('history.export-pdf');
+    
 });
 
 // Routes pour Administrateur uniquement
