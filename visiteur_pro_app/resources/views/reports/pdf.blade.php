@@ -26,6 +26,15 @@
             color: #666;
             margin: 0;
         }
+        .period-badge {
+            display: inline-block;
+            background: #e8f0fe;
+            color: #135bec;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
         .stats-grid {
             display: table;
             width: 100%;
@@ -89,12 +98,21 @@
             color: #666;
             font-size: 10px;
         }
+        .date-range {
+            font-size: 11px;
+            color: #888;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>Rapport d'Activité</h1>
         <p>Généré le {{ now()->format('d/m/Y à H:i') }}</p>
+        <div class="period-badge">{{ $periodLabel ?? 'Ce mois' }}</div>
+        @if(isset($startDate) && isset($endDate))
+            <p class="date-range">Du {{ $startDate->format('d/m/Y') }} au {{ $endDate->format('d/m/Y') }}</p>
+        @endif
     </div>
 
     <!-- KPIs -->
@@ -119,21 +137,25 @@
 
     <!-- Monthly Visits -->
     <div class="section">
-        <h2>Tendance des Visites (6 derniers mois)</h2>
+        <h2>Tendance des Visites ({{ $periodLabel ?? 'Période sélectionnée' }})</h2>
         <table>
             <thead>
                 <tr>
-                    <th>Mois</th>
+                    <th>Période</th>
                     <th>Nombre de visites</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($monthlyVisits as $month)
+                @forelse($monthlyVisits as $month)
                     <tr>
                         <td>{{ $month['month'] }}</td>
                         <td><strong>{{ $month['count'] }}</strong></td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="2" style="text-align: center; color: #888;">Aucune visite pour cette période</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>
@@ -150,13 +172,17 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($topClients as $client)
+                @forelse($topClients as $client)
                     <tr>
                         <td>{{ $client->full_name }}</td>
                         <td>{{ $client->company ?? 'N/A' }}</td>
                         <td><strong>{{ $client->visits_count }}</strong></td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="3" style="text-align: center; color: #888;">Aucun client pour cette période</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>
@@ -172,12 +198,16 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($visitsByPurpose as $visit)
+                @forelse($visitsByPurpose as $visit)
                     <tr>
-                        <td>{{ $visit->reason }}</td>
+                        <td>{{ $visit->reason ?: 'Non spécifié' }}</td>
                         <td><strong>{{ $visit->count }}</strong></td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="2" style="text-align: center; color: #888;">Aucun motif pour cette période</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

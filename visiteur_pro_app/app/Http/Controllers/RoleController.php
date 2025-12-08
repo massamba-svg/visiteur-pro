@@ -10,11 +10,9 @@ class RoleController extends Controller
 {
     public function index(Request $request)
     {
-        $roles = Role::withCount('users')->get();
+        $query = User::with('role');
         
-        $query = User::with('role')->orderBy('name');
-        
-        // Recherche par nom ou email
+        // Recherche
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function($q) use ($search) {
@@ -23,9 +21,34 @@ class RoleController extends Controller
             });
         }
         
-        $users = $query->get();
+        // Filtre par rôle
+        if ($request->filled('role_filter')) {
+            if ($request->role_filter === 'no_role') {
+                $query->whereNull('role_id');
+            } else {
+                $query->where('role_id', $request->role_filter);
+            }
+        }
         
-        return view('roles.index', compact('roles', 'users'));
+        // Tri
+        switch ($request->get('sort', 'newest')) {
+            case 'oldest':
+                $query->oldest();
+                break;
+            case 'name_asc':
+                $query->orderBy('name', 'asc');
+                break;
+            case 'name_desc':
+                $query->orderBy('name', 'desc');
+                break;
+            default:
+                $query->latest();
+        }
+        
+        $users = $query->paginate(10);
+        $roles = Role::withCount('users')->get();
+
+        return view('roles.index', compact('users', 'roles'));
     }
 
     public function create()

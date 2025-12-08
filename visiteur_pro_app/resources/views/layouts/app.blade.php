@@ -26,12 +26,12 @@
         </style>
     </head>
     <body class="font-display antialiased" style="background-color: #f6f6f8;">
-        <div class="relative flex min-h-screen w-full">
-            <!-- SideNavBar -->
+        <div class="relative flex h-screen w-full overflow-hidden">
+            <!-- SideNavBar - Fixed -->
             @include('layouts.sidebar')
 
-            <!-- Main Content -->
-            <main class="flex-1 p-6 lg:p-8">
+            <!-- Main Content - Scrollable -->
+            <main class="flex-1 overflow-y-auto p-6 lg:p-8">
                 <div class="w-full max-w-7xl mx-auto">
                     {{ $slot }}
                 </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Visit;
 use App\Models\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 class VisitController extends Controller
@@ -43,7 +44,7 @@ class VisitController extends Controller
         ]);
 
         $validated['status'] = 'en_cours';
-        $validated['user_id'] = auth()->id();
+        $validated['user_id'] = Auth::id();
 
         Visit::create($validated);
 

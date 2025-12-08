@@ -1,5 +1,5 @@
-<aside class="flex flex-col w-64 border-r border-gray-200 bg-white shrink-0">
-    <div class="flex h-full min-h-0 flex-col justify-between p-4">
+<aside class="flex flex-col w-64 h-screen border-r border-gray-200 bg-white shrink-0 sticky top-0">
+    <div class="flex h-full flex-col justify-between p-4 overflow-y-auto">
         <div class="flex flex-col gap-4">
             <!-- User Info -->
             <div class="flex items-center gap-3 mb-4">
