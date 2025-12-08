@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
@@ -80,7 +81,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         // Empêcher la suppression de son propre compte
-        if ($user->id === auth()->id()) {
+        if ($user->id === Auth::id()) {
             return redirect()->route('roles.index')
                              ->with('error', 'Vous ne pouvez pas supprimer votre propre compte.');
         }
@@ -89,5 +90,41 @@ class UserController extends Controller
 
         return redirect()->route('roles.index')
                          ->with('success', 'Utilisateur supprimé avec succès.');
+    }
+
+    /**
+     * Assigner un rôle à plusieurs utilisateurs
+     */
+    public function bulkAssignRole(Request $request)
+    {
+        $userIds = json_decode($request->user_ids, true);
+        $roleId = $request->role_id;
+        
+        if (empty($userIds)) {
+            return back()->with('error', 'Aucun utilisateur sélectionné.');
+        }
+        
+        User::whereIn('id', $userIds)->update(['role_id' => $roleId]);
+        
+        return back()->with('success', count($userIds) . ' utilisateur(s) mis à jour avec succès.');
+    }
+
+    /**
+     * Supprimer plusieurs utilisateurs
+     */
+    public function bulkDelete(Request $request)
+    {
+        $userIds = json_decode($request->user_ids, true);
+        
+        if (empty($userIds)) {
+            return back()->with('error', 'Aucun utilisateur sélectionné.');
+        }
+        
+        // Empêcher la suppression de l'utilisateur connecté
+        $userIds = array_filter($userIds, fn($id) => $id !== Auth::id());
+        
+        User::whereIn('id', $userIds)->delete();
+        
+        return back()->with('success', count($userIds) . ' utilisateur(s) supprimé(s) avec succès.');
     }
 }
