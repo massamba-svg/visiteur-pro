@@ -48,12 +48,13 @@
 
                 <!-- Company -->
                 <div class="flex flex-col gap-2">
-                    <label for="company" class="text-sm font-medium text-gray-900">Entreprise</label>
+                    <label for="company" class="text-sm font-medium text-gray-900">Entreprise *</label>
                     <input type="text" 
                            id="company" 
                            name="company" 
                            value="{{ old('company', $client->company) }}"
-                           class="form-input rounded-lg border border-gray-300 bg-gray-50 h-12 px-4 text-gray-900 focus:border-blue-600 focus:ring-2 focus:ring-blue-500/50">
+                           class="form-input rounded-lg border border-gray-300 bg-gray-50 h-12 px-4 text-gray-900 focus:border-blue-600 focus:ring-2 focus:ring-blue-500/50"
+                           required>
                 </div>
 
                 <!-- Email -->
