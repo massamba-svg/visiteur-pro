@@ -49,13 +49,14 @@
 
                 <!-- Company -->
                 <div class="flex flex-col gap-2">
-                    <label for="company" class="text-sm font-medium text-gray-900">Entreprise</label>
+                    <label for="company" class="text-sm font-medium text-gray-900">Entreprise *</label>
                     <input type="text" 
                            id="company" 
                            name="company" 
                            value="{{ old('company') }}"
                            class="form-input rounded-lg border border-gray-300 bg-gray-50 h-12 px-4 text-gray-900 focus:border-blue-600 focus:ring-2 focus:ring-blue-500/50"
-                           placeholder="Nom de l'entreprise">
+                           placeholder="Nom de l'entreprise"
+                           required>
                     @error('company')
                         <p class="text-sm text-red-600">{{ $message }}</p>
                     @enderror
