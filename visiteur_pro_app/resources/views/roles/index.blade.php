@@ -292,7 +292,7 @@
                                             class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium border-0 focus:ring-2 focus:ring-[#135bec]/50 cursor-pointer {{ $user->role?->name === 'Administrateur' ? 'bg-[#135bec]/20 text-[#135bec]' : ($user->role ? 'bg-[#e7ebf3] text-[#0d121b]' : 'bg-orange-100 text-orange-700') }}"
                                             onchange="this.form.submit()"
                                         >
-                                            <option value="">-- Aucun rôle --</option>
+                                            <option value="">Aucun rôle</option>
                                             @foreach($roles as $role)
                                                 <option value="{{ $role->id }}" {{ $user->role_id == $role->id ? 'selected' : '' }}>
                                                     {{ $role->name }}
