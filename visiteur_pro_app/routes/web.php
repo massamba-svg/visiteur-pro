@@ -29,11 +29,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     
     // Clients - Consultation pour tous
     Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
-    Route::get('/clients/{client}', [ClientController::class, 'show'])->name('clients.show');
     
-    // Historique - Tous les rôles (lecture)
+    // Historique - ORDRE IMPORTANT !
     Route::get('/history', [HistoryController::class, 'index'])->name('history.index');
-    Route::get('/history/{visit}', [HistoryController::class, 'show'])->name('history.show');
+    Route::get('/history/export-pdf', [HistoryController::class, 'exportPdf'])->name('history.export-pdf'); // AVANT {visit}
+    Route::get('/history/{visit}', [HistoryController::class, 'show'])->name('history.show'); // APRÈS export-pdf
     
     // Paramètres - Tous les rôles
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
@@ -55,9 +55,11 @@ Route::middleware(['auth', 'verified', 'role:Administrateur,Gestionnaire'])->gro
     Route::post('/clients', [ClientController::class, 'store'])->name('clients.store');
     Route::get('/clients/{client}/edit', [ClientController::class, 'edit'])->name('clients.edit');
     Route::put('/clients/{client}', [ClientController::class, 'update'])->name('clients.update');
+    Route::get('/clients/{client}', [ClientController::class, 'show'])->name('clients.show');
     
     // Rapports - Admin et Gestionnaire
     Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+    Route::get('/reports/export-pdf', [ReportController::class, 'exportPdf'])->name('reports.export-pdf');
 });
 
 // Routes pour Administrateur uniquement
@@ -66,9 +68,20 @@ Route::middleware(['auth', 'verified', 'role:Administrateur'])->group(function (
     Route::resource('roles', RoleController::class)->except(['show']);
     Route::post('/users/{user}/assign-role', [RoleController::class, 'assignRole'])->name('users.assign-role');
     
+    // Gestion des utilisateurs
+    Route::get('/users/create', [App\Http\Controllers\UserController::class, 'create'])->name('users.create');
+    Route::post('/users', [App\Http\Controllers\UserController::class, 'store'])->name('users.store');
+    Route::get('/users/{user}/edit', [App\Http\Controllers\UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{user}', [App\Http\Controllers\UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{user}', [App\Http\Controllers\UserController::class, 'destroy'])->name('users.destroy');
+    
     // Suppression de clients
     Route::delete('/clients/{client}', [ClientController::class, 'destroy'])->name('clients.destroy');
 });
+
+// Routes pour actions groupées
+Route::post('/users/bulk-assign-role', [App\Http\Controllers\UserController::class, 'bulkAssignRole'])->name('users.bulk-assign-role');
+Route::delete('/users/bulk-delete', [App\Http\Controllers\UserController::class, 'bulkDelete'])->name('users.bulk-delete');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -34,10 +34,10 @@
                     <span class="material-symbols-outlined text-lg">close</span>
                     <span class="truncate">Fermer l'historique</span>
                 </a>
-                <button class="flex items-center justify-center gap-2 cursor-pointer rounded-lg h-10 px-4 bg-[#135bec] text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-[#135bec]/90 transition-colors">
+                <a href="{{ route('history.export-pdf', request()->all()) }}" class="flex items-center justify-center gap-2 cursor-pointer rounded-lg h-10 px-4 bg-[#135bec] text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-[#135bec]/90 transition-colors">
                     <span class="material-symbols-outlined text-white text-lg">download</span>
                     <span class="truncate">Exporter</span>
-                </button>
+                </a>
             </div>
         </div>
 

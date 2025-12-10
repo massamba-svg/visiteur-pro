@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Visit;
 use App\Models\Client;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class HistoryController extends Controller
 {
@@ -99,5 +100,42 @@ class HistoryController extends Controller
             ],
             'client_stats' => $clientStats,
         ]);
+    }
+
+    /**
+     * Export history to PDF
+     */
+    public function exportPdf(Request $request)
+    {
+        $query = Visit::with(['client', 'user'])
+                      ->whereNotNull('departure_time')
+                      ->orderBy('departure_time', 'desc');
+
+        // Apply same filters as index
+        if ($request->filled('client_id')) {
+            $query->where('client_id', $request->client_id);
+        }
+
+        if ($request->filled('reason')) {
+            $query->where('reason', $request->reason);
+        }
+
+        if ($request->filled('person_met')) {
+            $query->where('person_met', 'like', "%{$request->person_met}%");
+        }
+
+        if ($request->filled('date_from')) {
+            $query->whereDate('arrival_time', '>=', $request->date_from);
+        }
+
+        if ($request->filled('date_to')) {
+            $query->whereDate('arrival_time', '<=', $request->date_to);
+        }
+
+        $visits = $query->get();
+
+        $pdf = PDF::loadView('history.pdf', compact('visits'));
+
+        return $pdf->download('historique-visites-' . now()->format('Y-m-d') . '.pdf');
     }
 }
